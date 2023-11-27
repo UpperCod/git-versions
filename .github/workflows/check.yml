@@ -1,0 +1,22 @@
+name: Mi Flujo de Trabajo
+
+on:
+  release:
+    types: [created, edited]
+
+jobs:
+  verificar-latest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obtener información del tag
+        id: obtener-tag
+        run: echo "::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}"
+
+      - name: Verificar si el tag es latest
+        run: |
+          if [[ "${{ steps.obtener-tag.outputs.TAG_NAME }}" == "latest" ]]; then
+            echo "Este es un tag latest."
+          else
+            echo "Este no es un tag latest."
+          fi
