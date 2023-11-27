@@ -7,16 +7,10 @@ on:
 jobs:
   verificar-latest:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Obtener información del tag
-        id: obtener-tag
-        run: echo "::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}"
-
-      - name: Verificar si el tag es latest
-        run: |
-          if [[ "${{ steps.obtener-tag.outputs.TAG_NAME }}" == "latest" ]]; then
-            echo "Este es un tag latest."
-          else
-            echo "Este no es un tag latest."
-          fi
+    - uses: actions/checkout@v1
+    - name: Get LATEST version
+        id: latest
+        uses: blacktop/get-latest-version-action@v1
+    - name: Echo version
+        run: echo 'Latest version is ${{ steps.latest.outputs.version }}.'
