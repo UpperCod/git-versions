@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: node index.mjs
+      - run: node index.mjs -- ${{ github.ref }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
