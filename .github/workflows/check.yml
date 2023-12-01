@@ -7,3 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: gh release list
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
