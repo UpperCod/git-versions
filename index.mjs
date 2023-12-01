@@ -18,6 +18,8 @@ stdout.split(/\n/).forEach((line) => {
   versions[version] = { version, latest: latest.toLowerCase() === "latest" };
 });
 
+console.log({ version, versions });
+
 if (!versions[version].latest) {
   process.exit();
 }
