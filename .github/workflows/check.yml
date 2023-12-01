@@ -1,13 +1,9 @@
 name: Mi Flujo de Trabajo
 
-on:
-  release:
-    types: [created, edited]
+on: push
 
 jobs:
   verificar-latest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Echo version
-        run: gh release list
+      run: gh release list
