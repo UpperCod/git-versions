@@ -3,7 +3,7 @@ import { exec } from "child_process";
 
 const run = promisify(exec);
 
-console.log(process.env);
+const [, version] = process.env.GITHUB_REF.match(/ref\/tags\/(.+)/);
 
 const { stdout } = await run(`gh release list`);
 
@@ -18,4 +18,6 @@ stdout.split(/\n/).forEach((line) => {
   versions[version] = { version, latest: latest.toLowerCase() === "latest" };
 });
 
-console.log(versions);
+if (!versions[version].latest) {
+  process.exit();
+}
