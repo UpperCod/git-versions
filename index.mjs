@@ -5,6 +5,8 @@ const run = promisify(exec);
 
 const [, version] = process.env.GITHUB_REF.match(/refs\/tags\/(.+)/);
 
+await new Promise((resolve) => setTimeout(resolve, 1000));
+
 const { stdout } = await run(`gh release list`);
 
 /**
