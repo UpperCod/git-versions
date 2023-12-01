@@ -3,7 +3,7 @@ import { exec } from "child_process";
 
 const run = promisify(exec);
 
-console.log(process.argv);
+console.log(process.env);
 
 const { stdout } = await run(`gh release list`);
 
