@@ -5,7 +5,7 @@ const run = promisify(exec);
 
 const [, version] = process.env.GITHUB_REF.match(/refs\/tags\/(.+)/);
 
-await new Promise((resolve) => setTimeout(resolve, 1000));
+await new Promise((resolve) => setTimeout(resolve, 5000));
 
 const { stdout } = await run(`gh release list`);
 
@@ -20,7 +20,7 @@ stdout.split(/\n/).forEach((line) => {
   versions[version] = { version, latest: latest.toLowerCase() === "latest" };
 });
 
-console.log({ version, versions });
+console.log({ version, versions, env: process.env });
 
 if (!versions[version].latest) {
   process.exit();
