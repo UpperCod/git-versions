@@ -6,6 +6,7 @@ jobs:
   verificar-latest:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: gh release list
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
