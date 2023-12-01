@@ -1,6 +1,8 @@
-const util = require("node:util");
-const exec = util.promisify(require("node:child_process").exec);
+import { util } from "util";
+import { exec } from "child_process";
 
-const command = await exec(`gh release list`);
+const run = util.promisify(exec);
+
+const command = await run(`gh release list`);
 
 console.log(command);
