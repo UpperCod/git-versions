@@ -18,6 +18,6 @@ const last = JSON.parse(stdout);
 
 console.log({ owner, repo, tag, last: last?.tag_name });
 
-if (last.tag_name !== tag || !tag || !last?.tag_name) {
-  process.exit();
+if (last.tag_name !== tag) {
+  throw `Version ${tag} is not latest`;
 }
