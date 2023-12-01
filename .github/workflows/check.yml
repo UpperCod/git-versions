@@ -8,7 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: releces
-        run: OUTPUT="$(gh release list)"
+        run: |
+          releces="$(gh release list)"
+          echo "::set-output name=tags::$releces"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo ${{ steps.relaces.OUTPUT }}
+      - run: echo ${{ steps.relaces.outputs.tags }} - output
