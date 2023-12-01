@@ -3,25 +3,39 @@ import { exec } from "child_process";
 
 const run = promisify(exec);
 
-const [, version] = process.env.GITHUB_REF.match(/refs\/tags\/(.+)/);
+await new Promise((resolve) => setTimeout(resolve, 1000));
 
-await new Promise((resolve) => setTimeout(resolve, 5000));
+const [, owner, repo, tag] = process.env.GITHUB_WORKFLOW_REF.match(
+  /([^\/]+)\/([^\/]+).+@refs\/tags\/(.+)/
+);
 
-const { stdout } = await run(`gh release list`);
+const { stdout } = await run(
+  `gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/${owner}/${repo}/releases/latest`
+);
 
-/**
- * @type {Object.<string,{version,latest}>}
- */
-const versions = {};
+const last = JSON.parse(stdout);
 
-stdout.split(/\n/).forEach((line) => {
-  if (!line) return;
-  const [, version, latest = ""] = line.match(/([^\t]+)\t([\w]+)?\t/);
-  versions[version] = { version, latest: latest.toLowerCase() === "latest" };
-});
+console.log({ owner, repo, tag, last });
 
-console.log({ version, versions, env: process.env });
-
-if (!versions[version].latest) {
+if (last.tag_name !== version) {
   process.exit();
 }
+
+// const { stdout } = await run(`gh release list`);
+
+// /**
+//  * @type {Object.<string,{version,latest}>}
+//  */
+// const versions = {};
+
+// stdout.split(/\n/).forEach((line) => {
+//   if (!line) return;
+//   const [, version, latest = ""] = line.match(/([^\t]+)\t([\w]+)?\t/);
+//   versions[version] = { version, latest: latest.toLowerCase() === "latest" };
+// });
+
+// console.log({ version, versions, env: process.env });
+
+// if (!versions[version].latest) {
+//   process.exit();
+// }
