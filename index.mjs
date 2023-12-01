@@ -17,7 +17,7 @@ const last = JSON.parse(stdout);
 
 console.log({ owner, repo, tag, last });
 
-if (last.tag_name !== version) {
+if (last.tag_name !== tag) {
   process.exit();
 }
 
