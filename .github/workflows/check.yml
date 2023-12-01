@@ -6,4 +6,4 @@ jobs:
   verificar-latest:
     runs-on: ubuntu-latest
     steps:
-      run: gh release list
+      - run: gh release list
