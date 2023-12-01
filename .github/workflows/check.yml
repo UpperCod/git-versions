@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: node index.js -- ${{gh release list}}
+      - id: releces
+        run: gh release list
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo ${{ relaces }}
