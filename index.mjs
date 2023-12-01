@@ -3,7 +3,7 @@ import { exec } from "child_process";
 
 const run = promisify(exec);
 
-const [, version] = process.env.GITHUB_REF.match(/ref\/tags\/(.+)/);
+const [, version] = process.env.GITHUB_REF.match(/refs\/tags\/(.+)/);
 
 const { stdout } = await run(`gh release list`);
 
