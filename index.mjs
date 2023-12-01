@@ -14,6 +14,8 @@ const { stdout } = await run(
   `gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/${owner}/${repo}/releases/latest`
 );
 
+const last = JSON.parse(stdout);
+
 console.log({ owner, repo, tag, last: last?.tag_name });
 
 if (last.tag_name !== tag || !tag || !last?.tag_name) {
